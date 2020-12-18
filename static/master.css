@@ -24,3 +24,15 @@ a.github img {
     float: right;
     margin: 12.5px 15px 0 0;
 }
+
+#board {
+    margin: 50px;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#board td {
+    border: 1px solid rgb(216, 216, 216);
+    height: 25px;
+    width: 25px;
+}
