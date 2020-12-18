@@ -8,6 +8,11 @@ function updateNodes(rows) {
             $(`#board tr:nth-child(${r + 1})`).append(`<td class="${col}"></td>`);
         }
     }
+
+    $('#board td').click(function() {
+        if ($(this).attr('class') == 'wall') $(this).attr('class', 'unvisited');
+        else $(this).attr('class', 'wall');
+    });
 }
 
 function getSizes() {
