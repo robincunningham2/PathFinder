@@ -40,3 +40,7 @@ a.github img {
     height: 25px;
     width: 25px;
 }
+
+#board td.unvisited {
+    background-color: white;
+}
