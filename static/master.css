@@ -44,3 +44,9 @@ a.github img {
 #board td.unvisited {
     background-color: white;
 }
+
+#board td.wall {
+    background-color: #2d3135;
+    border: 1px solid #2d3135;
+    animation: wall-create .3s;
+}
