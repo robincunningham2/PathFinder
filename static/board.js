@@ -5,7 +5,7 @@ function updateNodes(rows) {
         $('#board').append('<tr></tr>')
         for (let c = 0; c < row.length; c++) {
             const col = row[c];
-            $(`#board tr:nth-child(${r + 1})`).append('<td></td>');
+            $(`#board tr:nth-child(${r + 1})`).append(`<td class="${col}"></td>`);
         }
     }
 }
