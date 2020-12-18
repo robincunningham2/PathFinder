@@ -12,5 +12,24 @@ class PathFinder {
 
             this.rows.push(cols);
         }
+
+        this._getNode = function(x, y) {
+            return this.rows[y][x];
+        }
+
+        this._setNode = function(x, y, value) {
+            this.rows[y][x] = value;
+        }
+
+        this._handleNode = function(x, y) {
+            if (this._endNodeFound) return;
+            
+        }
+
+        this._endNodeFound = false;
+
+        this.start = function(callback) {
+            
+        }
     }
 }
