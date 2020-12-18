@@ -48,16 +48,19 @@ a.github img {
 
 #board td.visited {
     background-color: #00ffd1;
+    border: 1px solid #00ffd1;
 }
 
 #board td.start {
     /* Change this soon */
     background-color: green;
+    border: 1px solid green;
 }
 
 #board td.target {
     /* Change this soon */
     background-color: red;
+    border: 1px solid red;
 }
 
 #board td.wall {
