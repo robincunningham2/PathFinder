@@ -40,16 +40,5 @@ function getSizes() {
 }
 
 const win = getSizes();
-var rows = [];
-for (let r = 0; r < win.h; r++) {
-    let cols = [];
-    for (let c = 0; c < win.w; c++) {
-        if (r == 5 && c == 5) cols.push('start');
-        else if (r == 5 && c == 15) cols.push('target');
-        else cols.push('unvisited');
-    }
-
-    rows.push(cols);
-}
-
-updateNodes(rows);
+const pathFinder = new PathFinder({ x: 5, y: 5 }, { x: 15, y: 5 }, win);
+updateNodes(pathFinder.rows);
