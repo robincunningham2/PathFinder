@@ -1,17 +1,31 @@
 
+let mousedown = false;
+$(document.body).mousedown(function() {
+    mousedown = true;
+});
+
+$(document.body).mouseup(function() {
+    mousedown = false;
+});
+
+function nodeEvent(e) {
+    if ($(e.target).attr('class') == 'wall') $(e.target).attr('class', 'unvisited');
+    else $(e.target).attr('class', 'wall');
+}
+
 function updateNodes(rows) {
     for (let r = 0; r < rows.length; r++) {
         const row = rows[r];
-        $('#board').append('<tr></tr>')
+        $('#board').append('<tr draggable="false"></tr>')
         for (let c = 0; c < row.length; c++) {
             const col = row[c];
             $(`#board tr:nth-child(${r + 1})`).append(`<td class="${col}"></td>`);
         }
     }
 
-    $('#board td').click(function() {
-        if ($(this).attr('class') == 'wall') $(this).attr('class', 'unvisited');
-        else $(this).attr('class', 'wall');
+    $('#board td').mousedown(nodeEvent);
+    $('#board td').mouseover(function(e) {
+        if (mousedown) nodeEvent(e);
     });
 }
 
