@@ -24,3 +24,16 @@ function getSizes() {
         w: Math.floor((w - 100) / 25)
     };
 }
+
+const win = getSizes();
+var rows = [];
+for (let r = 0; r < win.h; r++) {
+    let cols = [];
+    for (let c = 0; c < win.w; c++) {
+        cols.push('unvisited');
+    }
+
+    rows.push(cols);
+}
+
+updateNodes(rows);
