@@ -50,3 +50,9 @@ a.github img {
     border: 1px solid #2d3135;
     animation: wall-create .3s;
 }
+
+@keyframes wall-create {
+    0%   { transform: scale(.3); }
+    50%  { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
