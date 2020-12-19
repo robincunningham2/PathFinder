@@ -13,13 +13,22 @@ function nodeEvent(e) {
     else $(e.target).attr('class', 'wall');
 }
 
-function updateNodes(rows) {
-    for (let r = 0; r < rows.length; r++) {
-        const row = rows[r];
-        $('#board').append('<tr draggable="false"></tr>')
-        for (let c = 0; c < row.length; c++) {
-            const col = row[c];
-            $(`#board tr:nth-child(${r + 1})`).append(`<td class="${col}"></td>`);
+function updateNodes(nodes, grid) {
+    $('#board').html(null);
+
+    for (let r = 0; r < grid.h; r++) {
+        $('#board').append('<tr></tr>');
+        for (let c = 0; c < grid.w; c++) {
+            $(`#board tr:nth-child(${r + 1})`).append(`<td></td>`);
+        }
+    }
+
+    for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i].role == null) {
+            nodes[i].role = 'unvisited';
+            if (nodes[i].isVisited) nodes[i].role = 'visited';
+
+            $(`#board tr:nth-child(${nodes[i].y + 1}) td:nth-child(${nodes[i].x + 1})`).attr('class', nodes[i].role);
         }
     }
 
@@ -40,5 +49,9 @@ function getSizes() {
 }
 
 const win = getSizes();
-const pathFinder = new PathFinder({ x: 5, y: 5 }, { x: 15, y: 5 }, win);
-updateNodes(pathFinder.rows);
+const pathFinder = new PathFinder({ x: 5, y: 5 }, { x: 15, y: 5 });
+updateNodes(pathFinder.nodes, win);
+
+pathFinder.start();
+
+updateNodes(pathFinder.nodes, win);
