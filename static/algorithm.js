@@ -1,4 +1,11 @@
 
+class Node {
+    constructor(x, y) {
+        
+    }
+}
+
+
 class PathFinder {
     constructor(start, target, grid) {
         this.rows = [];
