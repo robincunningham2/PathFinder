@@ -1,42 +1,82 @@
 
 class Node {
-    constructor(x, y) {
-        
+    constructor(xy, role) {
+        this.role = role;
+        this.isVisited = false;
+        this.x = xy.x;
+        this.y = xy.y;
+        this.path = '';
     }
 }
 
 
 class PathFinder {
-    constructor(start, target, grid) {
-        this.rows = [];
-        for (let r = 0; r < grid.h; r++) {
-            let cols = [];
-            for (let c = 0; c < grid.w; c++) {
-                if (r == start.y && c == start.x) cols.push('start');
-                else if (r == target.y && c == target.x) cols.push('target');
-                else cols.push('unvisited');
-            }
-
-            this.rows.push(cols);
-        }
+    constructor(start, target) {
+        this.nodes = [];
 
         this._getNode = function(x, y) {
-            return this.rows[y][x];
+            let found;
+            for (let i = 0; i < this.nodes.length; i++) {
+                if (this.nodes[i].x == x && this.nodes[i].y == y) {
+                    found = this.nodes[i];
+                    found._i = i;
+                }
+            }
+
+            if (!found) {
+                found = new Node({ x: x, y: y }, null);
+            }
+
+            return found;
         }
 
         this._setNode = function(x, y, value) {
-            this.rows[y][x] = value;
+            if (!this._getNode(x, y)) this.nodes.push(value);
+            else {
+                this.nodes[this._getNode(x, y)._i] = value;
+            }
         }
 
         this._handleNode = function(x, y) {
+            if (this._getNode(x, y).role == 'target') this._endNodeFound = true;
             if (this._endNodeFound) return;
-            
+
+            // Right
+            if (this._getNode(x + 1, y).role != 'wall' && !this._getNode(x + 1, y).isVisited) {
+                this._handleNode(x + 1, y);
+            }
+
+            // Down
+            if (this._getNode(x, y - 1).role != 'wall' && !this._getNode(x, y - 1).isVisited) {
+                this._handleNode(x, y - 1);
+            }
+
+            // Left
+            if (this._getNode(x - 1, y).role != 'wall' && !this._getNode(x - 1, y).isVisited) {
+                this._handleNode(x - 1, y);
+            }
+
+            // Up
+            if (this._getNode(x, y + 1).role != 'wall' && !this._getNode(x, y + 1).isVisited) {
+                this._handleNode(x, y + 1);
+            }
         }
 
         this._endNodeFound = false;
 
-        this.start = function(callback) {
-            
+        this.visitedNodes = function() {
+            let nodes = [];
+            for (let i = 0; i < this.nodes.length; i++) {
+                if (this.nodes[i].isVisited) nodes.push(this.nodes[i]);
+            }
+
+            return nodes;
+        }
+
+        this.start = function() {
+            this._setNode(start.x, start.y, new Node(start, 'start'));
+            this._setNode(target.x, target.y, new Node(target, 'target'));
+            // this._handleNode(start.x, start.y);
         }
     }
 }
